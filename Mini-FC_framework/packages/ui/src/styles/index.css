@@ -1,0 +1,61 @@
+@import './variables.css';
+
+/* 基础重置 */
+.mf-ui * {
+  box-sizing: border-box;
+}
+
+/* 禁用状态通用样式 */
+.mf-disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 聚焦状态 */
+.mf-focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+/* 动画 */
+@keyframes mf-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mf-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mf-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mf-animate-fade-in {
+  animation: mf-fade-in var(--mf-transition-duration) var(--mf-transition-timing);
+}
+
+.mf-animate-slide-up {
+  animation: mf-slide-up var(--mf-transition-duration) var(--mf-transition-timing);
+}
+
+.mf-animate-spin {
+  animation: mf-spin 1s linear infinite;
+}

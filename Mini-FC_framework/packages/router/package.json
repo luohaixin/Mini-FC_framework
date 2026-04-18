@@ -1,0 +1,43 @@
+{
+  "name": "@mini-fc/router",
+  "version": "1.0.0",
+  "description": "Mini-FC framework router - lightweight routing solution",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "router",
+    "mini-fc",
+    "framework",
+    "frontend"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@my-framework/core": "file:../core"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vitest": "^1.1.0"
+  },
+  "peerDependencies": {
+    "@my-framework/core": "^1.0.0"
+  }
+}

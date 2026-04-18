@@ -1,0 +1,61 @@
+.mf-toast-container {
+  position: fixed;
+  top: var(--mf-spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--mf-spacing-sm);
+  pointer-events: none;
+}
+
+.mf-toast {
+  display: flex;
+  align-items: center;
+  gap: var(--mf-spacing-sm);
+  padding: var(--mf-spacing-sm) var(--mf-spacing-md);
+  background-color: #fff;
+  border-radius: var(--mf-border-radius);
+  box-shadow: var(--mf-shadow-3);
+  pointer-events: auto;
+  min-width: 200px;
+}
+
+.mf-toast__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.mf-toast__message {
+  font-size: 14px;
+  color: var(--mf-text-primary);
+}
+
+/* 类型样式 */
+.mf-toast--info .mf-toast__icon {
+  background-color: var(--mf-primary-color);
+  color: #fff;
+}
+
+.mf-toast--success .mf-toast__icon {
+  background-color: var(--mf-success-color);
+  color: #fff;
+}
+
+.mf-toast--error .mf-toast__icon {
+  background-color: var(--mf-error-color);
+  color: #fff;
+}
+
+.mf-toast--warning .mf-toast__icon {
+  background-color: var(--mf-warning-color);
+  color: #fff;
+}
