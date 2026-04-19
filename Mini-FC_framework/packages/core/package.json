@@ -1,7 +1,17 @@
 {
-  "name": "@my-framework/core",
+  "name": "@mini-fc/core",
   "version": "1.0.0",
+  "description": "Mini-FC framework core - lightweight reactive frontend framework",
   "type": "module",
+  "license": "MIT",
+  "author": "",
+  "keywords": [
+    "mini-fc",
+    "framework",
+    "frontend",
+    "reactive",
+    "vue"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

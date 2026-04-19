@@ -1,7 +1,17 @@
 {
   "name": "@mini-fc/store",
   "version": "1.0.0",
+  "description": "Mini-FC framework store - lightweight state management",
   "type": "module",
+  "license": "MIT",
+  "author": "",
+  "keywords": [
+    "mini-fc",
+    "store",
+    "state-management",
+    "pinia",
+    "reactive"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -20,7 +30,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@my-framework/core": "file:../core"
+    "@mini-fc/core": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

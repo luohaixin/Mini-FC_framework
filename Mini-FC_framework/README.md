@@ -4,7 +4,7 @@
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF.svg)](https://vitejs.dev/)
-[![Tests](https://img.shields.io/badge/Tests-140%20passed-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/Tests-148%20passed-brightgreen.svg)]()
 
 ## ✨ 特性
 
@@ -18,54 +18,38 @@
 
 ## 📦 安装
 
-> ⚠️ **注意**：Mini-FC 是本地开发的框架，尚未发布到 npm，需要通过本地方式安装。
-
-### 前置准备
-
-首先，确保你已经克隆或下载了框架源码：
+### 使用 CLI 创建项目（推荐）
 
 ```bash
-cd "/Users/xingxingbei/Documents/game/Mini-FC framework"
-```
-
-### 步骤 1：构建框架包
-
-在使用框架之前，需要先构建所有包：
-
-```bash
-# 安装根目录依赖
-npm install
-
-# 构建核心包
-cd packages/core && npm install && npm run build
-
-# 构建路由包
-cd packages/router && npm install && npm run build
-
-# 构建状态管理包
-cd packages/store && npm install && npm run build
-
-# 构建 UI 组件包
-cd packages/ui && npm install && npm run build
-
-# 构建 CLI 工具
-cd packages/cli && npm install && npm run build
-```
-
-### 步骤 2：创建新项目
-
-#### 方式一：使用本地 CLI（推荐）
-
-```bash
-# 使用本地 CLI 创建项目
-node "/Users/xingxingbei/Documents/game/Mini-FC framework/packages/cli/bin/cli.js" create my-app
+# 使用 npx 直接创建项目（无需全局安装）
+npx @mini-fc/cli create my-app
 
 cd my-app
 npm install
 npm run dev
 ```
 
-#### 方式二：手动创建项目
+### 手动安装
+
+如果你已有项目，可以手动安装需要的包：
+
+```bash
+# 安装核心框架
+npm install @mini-fc/core
+
+# 安装路由（可选）
+npm install @mini-fc/router
+
+# 安装状态管理（可选）
+npm install @mini-fc/store
+
+# 安装 UI 组件库（可选）
+npm install @mini-fc/ui
+```
+
+### 手动创建项目
+
+如果你没有使用 CLI，也可以手动创建项目：
 
 ```bash
 # 创建项目目录
@@ -89,10 +73,10 @@ npm init -y
     "preview": "vite preview"
   },
   "dependencies": {
-    "@my-framework/core": "file:../Mini-FC framework/packages/core",
-    "@mini-fc/router": "file:../Mini-FC framework/packages/router",
-    "@mini-fc/store": "file:../Mini-FC framework/packages/store",
-    "@mini-fc/ui": "file:../Mini-FC framework/packages/ui"
+    "@mini-fc/core": "^1.0.0",
+    "@mini-fc/router": "^1.0.0",
+    "@mini-fc/store": "^1.0.0",
+    "@mini-fc/ui": "^1.0.0"
   },
   "devDependencies": {
     "typescript": "^5.3.3",
@@ -121,13 +105,13 @@ npm init -y
 创建 `src/main.ts`：
 
 ```typescript
-import { h, render, defineComponent, ref } from '@my-framework/core';
+import { h, render, defineComponent, ref } from '@mini-fc/core';
 import { createRouter, RouterView } from '@mini-fc/router';
 import { defineStore } from '@mini-fc/store';
 import { Button, Card } from '@mini-fc/ui';
 
-// 导入 UI 样式（使用相对路径）
-import '../node_modules/@mini-fc/ui/src/styles/index.css';
+// 导入 UI 样式
+import '@mini-fc/ui/dist/style.css';
 
 // 创建 Store
 const useCounterStore = defineStore({
@@ -190,8 +174,8 @@ npm run dev
 ### 基础示例
 
 ```typescript
-import { ref, computed, h, render } from '@my-framework/core';
-
+import { ref, computed, h, render } from '@mini-fc/core';
+```
 // 创建响应式状态
 const count = ref(0);
 const double = computed(() => count.value * 2);
@@ -213,8 +197,8 @@ render(vnode, document.getElementById('app')!);
 ### 组件定义
 
 ```typescript
-import { defineComponent, ref, h } from '@my-framework/core';
-
+import { defineComponent, ref, h } from '@mini-fc/core';
+```
 const Counter = defineComponent({
   name: 'Counter',
   props: {
@@ -244,8 +228,8 @@ render(app, document.getElementById('app')!);
 
 ```typescript
 import { createRouter, RouterView } from '@mini-fc/router';
-import { h, render, defineComponent } from '@my-framework/core';
-
+import { h, render, defineComponent } from '@mini-fc/core';
+```
 // 定义路由
 const router = createRouter({
   routes: [
@@ -322,8 +306,8 @@ const UserProfile = defineComponent({
 
 ```typescript
 import { Button, Input, Modal, Card } from '@mini-fc/ui';
-// 使用相对路径导入样式
-import '../node_modules/@mini-fc/ui/src/styles/index.css';
+// 导入样式
+import '@mini-fc/ui/dist/style.css';
 
 const App = defineComponent({
   name: 'App',
@@ -360,8 +344,8 @@ const App = defineComponent({
 ### Slots 插槽使用
 
 ```typescript
-import { defineComponent, h } from '@my-framework/core';
-
+import { defineComponent, h } from '@mini-fc/core';
+```
 // 在组件中使用 slots
 const MyComponent = defineComponent({
   name: 'MyComponent',
@@ -407,7 +391,11 @@ Mini-FC framework/
 
 ```bash
 # 创建新项目
-node packages/cli/bin/cli.js create <project-name> [-t <template>]
+npx @mini-fc/cli create <project-name> [-t <template>]
+
+# 或全局安装后使用
+npm install -g @mini-fc/cli
+mini-fc create <project-name>
 
 # 启动开发服务器
 npm run dev
@@ -419,9 +407,15 @@ npm run build
 npm run preview
 ```
 
-## 🧪 开发
+## 🧪 开发（框架开发者）
+
+如果你是框架开发者，需要在本地开发：
 
 ```bash
+# 克隆仓库
+git clone <repository-url>
+cd Mini-FC_framework
+
 # 安装依赖
 npm install
 
@@ -432,11 +426,7 @@ npm test
 npm run test:coverage
 
 # 构建所有包
-cd packages/core && npm run build
-cd packages/router && npm run build
-cd packages/store && npm run build
-cd packages/ui && npm run build
-cd packages/cli && npm run build
+npm run build
 
 # 代码检查
 npm run lint
@@ -447,7 +437,7 @@ npm run format
 
 ## 📚 API 文档
 
-### 核心 API (@my-framework/core)
+### 核心 API (@mini-fc/core)
 
 #### 响应式
 
@@ -527,29 +517,43 @@ Mini-FC UI 使用 CSS 变量定义主题，你可以轻松自定义：
 
 ## ⚠️ 常见问题
 
-### 1. npm install -g @mini-fc/cli 失败
+### 1. 如何更新已安装的包？
 
-**原因**：Mini-FC 是本地框架，未发布到 npm。
-
-**解决**：使用本地 CLI 路径：
 ```bash
-node "packages/cli/bin/cli.js" create my-app
+# 更新所有 @mini-fc/* 包
+npm update @mini-fc/core @mini-fc/router @mini-fc/store @mini-fc/ui
+
+# 或更新 CLI
+npm update -g @mini-fc/cli
 ```
 
 ### 2. 样式导入失败
 
-**原因**：UI 包样式需要使用相对路径导入。
+**原因**：UI 包样式导入路径错误。
 
 **解决**：
 ```typescript
-import '../node_modules/@mini-fc/ui/src/styles/index.css';
+// 正确方式
+import '@mini-fc/ui/dist/style.css';
 ```
 
-### 3. 模块找不到
+### 3. TypeScript 类型找不到
 
-**原因**：框架包未构建。
+**解决**：确保 `tsconfig.json` 中配置了模块解析：
+```json
+{
+  "compilerOptions": {
+    "moduleResolution": "bundler",
+    "esModuleInterop": true
+  }
+}
+```
 
-**解决**：先运行 `npm run build` 构建所有包。
+### 4. 如何查看包版本？
+
+```bash
+npm list @mini-fc/core
+```
 
 ## 🤝 贡献
 

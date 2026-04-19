@@ -1,15 +1,24 @@
 {
-  "name": "@my-framework/root",
+  "name": "@mini-fc/root",
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "npm run build --workspaces",
     "test": "vitest",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\""
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "publish:core": "cd packages/core && npm publish --access public",
+    "publish:router": "cd packages/router && npm publish --access public",
+    "publish:store": "cd packages/store && npm publish --access public",
+    "publish:ui": "cd packages/ui && npm publish --access public",
+    "publish:cli": "cd packages/cli && npm publish --access public",
+    "publish:all": "npm run publish:core && npm run publish:router && npm run publish:store && npm run publish:ui && npm run publish:cli"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",

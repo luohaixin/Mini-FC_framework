@@ -34,7 +34,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@my-framework/core": "file:../core"
+    "@mini-fc/core": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
@@ -43,6 +43,6 @@
     "vitest": "^1.1.0"
   },
   "peerDependencies": {
-    "@my-framework/core": "^1.0.0"
+    "@mini-fc/core": "^1.0.0"
   }
 }

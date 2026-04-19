@@ -1,9 +1,19 @@
 {
   "name": "@mini-fc/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
+  "description": "Mini-FC framework CLI - project scaffolding tool",
   "type": "module",
+  "license": "MIT",
+  "author": "",
+  "keywords": [
+    "mini-fc",
+    "cli",
+    "scaffold",
+    "vite",
+    "frontend"
+  ],
   "bin": {
-    "mini-fc": "./bin/cli.js"
+    "mini-fc": "bin/cli.js"
   },
   "files": [
     "bin",
