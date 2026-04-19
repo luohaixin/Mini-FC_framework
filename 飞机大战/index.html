@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飞机大战</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui">
+            <div id="score">得分: 0</div>
+            <div id="level">关卡: 1</div>
+            <div id="playerHealth">血量: 100%</div>
+            <div id="weapon">武器: 普通</div>
+            <div id="weaponLevel">武器等级: 1</div>
+            <div id="help">按 ESC 暂停</div>
+        </div>
+        <div id="bossHealthBar" class="hidden">
+            <div id="bossName">BOSS</div>
+            <div id="bossHealthContainer">
+                <div id="bossHealth"></div>
+            </div>
+        </div>
+        
+        <!-- 开始界面 -->
+        <div id="startScreen" class="screen">
+            <h1>飞机大战</h1>
+            <p>使用鼠标控制飞机移动</p>
+            <p>自动发射子弹攻击敌人</p>
+            <p>收集道具升级武器</p>
+            <button id="startBtn">开始游戏</button>
+        </div>
+        
+        <!-- 关卡选择界面 -->
+        <div id="levelSelectScreen" class="screen hidden">
+            <h1>选择关卡</h1>
+            <div class="level-grid">
+                <button class="level-btn" data-level="1">
+                    <span class="level-num">1</span>
+                    <span class="level-name">初出茅庐</span>
+                </button>
+                <button class="level-btn" data-level="2">
+                    <span class="level-num">2</span>
+                    <span class="level-name">渐入佳境</span>
+                </button>
+                <button class="level-btn" data-level="3">
+                    <span class="level-num">3</span>
+                    <span class="level-name">危机四伏</span>
+                </button>
+                <button class="level-btn" data-level="4">
+                    <span class="level-num">4</span>
+                    <span class="level-name">生死考验</span>
+                </button>
+                <button class="level-btn" data-level="5">
+                    <span class="level-num">5</span>
+                    <span class="level-name">终极决战</span>
+                </button>
+            </div>
+            <button id="backToMenuBtn" class="secondary-btn" onclick="game.returnToMenu()">返回主菜单</button>
+        </div>
+        
+        <!-- 暂停菜单 -->
+        <div id="pauseScreen" class="screen hidden">
+            <h1>游戏暂停</h1>
+            <div class="pause-menu">
+                <button id="resumeBtn" class="menu-option">1. 继续游戏</button>
+                <button id="menuBtn" class="menu-option">2. 返回主菜单</button>
+            </div>
+        </div>
+        
+        <!-- 游戏结束界面 -->
+        <div id="gameOverScreen" class="screen hidden">
+            <h1>游戏结束</h1>
+            <p id="finalScore">最终得分: 0</p>
+            <button id="restartBtn">重新开始</button>
+            <button id="gameOverMenuBtn" class="secondary-btn" onclick="game.returnToMenu()">返回主菜单</button>
+        </div>
+        
+        <!-- 关卡完成界面 -->
+        <div id="levelCompleteScreen" class="screen hidden">
+            <h1>关卡完成!</h1>
+            <p>准备进入下一关...</p>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

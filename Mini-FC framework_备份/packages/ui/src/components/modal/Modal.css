@@ -1,0 +1,114 @@
+.mf-modal-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.mf-modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.mf-modal-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: var(--mf-spacing-lg);
+}
+
+.mf-modal {
+  background-color: #fff;
+  border-radius: var(--mf-border-radius);
+  box-shadow: var(--mf-shadow-3);
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 32px);
+  overflow: hidden;
+}
+
+.mf-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--mf-spacing-md) var(--mf-spacing-lg);
+  border-bottom: 1px solid var(--mf-border-color);
+}
+
+.mf-modal__title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--mf-text-primary);
+}
+
+.mf-modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  color: var(--mf-text-tertiary);
+  cursor: pointer;
+  font-size: 14px;
+  transition: color var(--mf-transition-duration);
+}
+
+.mf-modal__close:hover {
+  color: var(--mf-text-primary);
+}
+
+.mf-modal__body {
+  padding: var(--mf-spacing-lg);
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.mf-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--mf-spacing-sm);
+  padding: var(--mf-spacing-md) var(--mf-spacing-lg);
+  border-top: 1px solid var(--mf-border-color);
+}
+
+.mf-modal__btn {
+  height: var(--mf-height-md);
+  padding: 0 var(--mf-spacing-md);
+  border: 1px solid var(--mf-border-color);
+  border-radius: var(--mf-border-radius);
+  background-color: #fff;
+  color: var(--mf-text-primary);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all var(--mf-transition-duration);
+}
+
+.mf-modal__btn:hover {
+  border-color: var(--mf-primary-color);
+  color: var(--mf-primary-color);
+}
+
+.mf-modal__btn--primary {
+  background-color: var(--mf-primary-color);
+  border-color: var(--mf-primary-color);
+  color: #fff;
+}
+
+.mf-modal__btn--primary:hover {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+  color: #fff;
+}
