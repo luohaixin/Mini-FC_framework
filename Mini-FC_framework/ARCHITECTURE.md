@@ -107,13 +107,13 @@ Mini-FC 是一个基于 Petite Vue 封装的轻量级前端框架，遵循以下
 
 ### 2.2 包清单
 
-| 包名                 | 路径               | 版本 | 体积(gzip) | 依赖                               |
-| -------------------- | ------------------ | ---- | ---------- | ---------------------------------- |
-| `@mini-fc/core`      | `packages/core/`   | v1.0 | ≤ 15KB     | `@vue/reactivity`                  |
-| `@mini-fc/router`    | `packages/router/` | v1.1 | ≤ 5KB      | `@mini-fc/core`                    |
-| `@mini-fc/store`     | `packages/store/`  | v1.0 | ≤ 2KB      | `@mini-fc/core`                    |
-| `@mini-fc/ui`        | `packages/ui/`     | v1.0 | ≤ 20KB     | `@mini-fc/core`                    |
-| `@mini-fc/cli`       | `packages/cli/`    | v1.0 | ≤ 500行    | `vite`, `commander.js`, `kolorist` |
+| 包名              | 路径               | 版本 | 体积(gzip) | 依赖                               |
+| ----------------- | ------------------ | ---- | ---------- | ---------------------------------- |
+| `@mini-fc/core`   | `packages/core/`   | v1.0 | ≤ 15KB     | `@vue/reactivity`                  |
+| `@mini-fc/router` | `packages/router/` | v1.1 | ≤ 5KB      | `@mini-fc/core`                    |
+| `@mini-fc/store`  | `packages/store/`  | v1.0 | ≤ 2KB      | `@mini-fc/core`                    |
+| `@mini-fc/ui`     | `packages/ui/`     | v1.0 | ≤ 20KB     | `@mini-fc/core`                    |
+| `@mini-fc/cli`    | `packages/cli/`    | v1.0 | ≤ 500行    | `vite`, `commander.js`, `kolorist` |
 
 ---
 
