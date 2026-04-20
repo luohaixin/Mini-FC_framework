@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'
 
+defaults:
+  run:
+    working-directory: ./Mini-FC_framework
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -17,6 +21,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+          cache-dependency-path: ./Mini-FC_framework/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -43,6 +48,7 @@ jobs:
           node-version: 20
           cache: npm
           registry-url: https://registry.npmjs.org/
+          cache-dependency-path: ./Mini-FC_framework/package-lock.json
 
       - name: Install dependencies
         run: npm ci
