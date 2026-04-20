@@ -397,7 +397,6 @@ Mini-FC framework/
 │   └── cli/            # CLI 脚手架
 ├── playground/         # 示例项目
 ├── coverage/           # 测试覆盖率报告
-├── PROJECT_MEMORY.md   # 项目记忆库（跨对话状态恢复）
 └── README.md
 ```
 
