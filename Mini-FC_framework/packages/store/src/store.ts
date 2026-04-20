@@ -1,5 +1,6 @@
-import { reactive, computed, toRefs } from '@my-framework/core';
-import type { Ref, ComputedRef } from '@my-framework/core';
+import { reactive, computed, toRefs } from '@mini-fc/core';
+import type { Ref, ComputedRef } from '@mini-fc/core';
+
 import type {
   StoreId,
   StateTree,
@@ -12,17 +13,11 @@ import type {
 
 const stores = new Map<StoreId, unknown>();
 
-function isGetterWithState<S extends StateTree>(
-  value: unknown
-): value is (state: S) => unknown {
+function isGetterWithState<S extends StateTree>(value: unknown): value is (state: S) => unknown {
   return typeof value === 'function' && value.length === 1;
 }
 
-function createStore<
-  S extends StateTree,
-  G extends _GettersTree<S>,
-  A extends _ActionsTree
->(
+function createStore<S extends StateTree, G extends _GettersTree<S>, A extends _ActionsTree>(
   id: StoreId,
   stateFn: () => S,
   getters?: G,
@@ -71,9 +66,7 @@ export function defineStore<
   S extends StateTree,
   G extends _GettersTree<S>,
   A extends _ActionsTree
->(
-  options: DefineStoreOptions<Id, S, G, A>
-): DefineStoreReturn<S, G, A> {
+>(options: DefineStoreOptions<Id, S, G, A>): DefineStoreReturn<S, G, A> {
   const { id, state, getters, actions } = options;
 
   return function useStore(): Store<S, G, A> {

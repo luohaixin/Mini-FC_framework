@@ -1,5 +1,13 @@
-import { ref, shallowRef, triggerRef } from '@my-framework/core';
-import type { Router, RouterOptions, RouteMatch, Route, NavigationGuard, NavigationHook } from './types.js';
+import { ref, shallowRef, triggerRef } from '@mini-fc/core';
+
+import type {
+  Router,
+  RouterOptions,
+  RouteMatch,
+  Route,
+  NavigationGuard,
+  NavigationHook
+} from './types.js';
 import { matchRoute } from './route.js';
 
 // 当前路由实例（用于 RouterView 访问）
@@ -10,7 +18,7 @@ export interface RouterInstance extends Router {
   _resolveComponent: (route: Route) => Promise<Component | null>;
 }
 
-import type { Component } from '@my-framework/core';
+import type { Component } from '@mini-fc/core';
 
 export function createRouter(options: RouterOptions): RouterInstance {
   const { routes, base = '', mode = 'hash' } = options;
@@ -38,7 +46,9 @@ export function createRouter(options: RouterOptions): RouterInstance {
     if (typeof route.component === 'function') {
       // 异步组件
       try {
-        const module = await (route.component as () => Promise<{ default: Component } | Component>)();
+        const module = await (
+          route.component as () => Promise<{ default: Component } | Component>
+        )();
         return (module as { default: Component }).default || module;
       } catch (error) {
         console.error('Failed to load component:', error);

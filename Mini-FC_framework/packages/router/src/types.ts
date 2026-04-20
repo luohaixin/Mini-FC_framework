@@ -1,4 +1,4 @@
-import type { Component } from '@my-framework/core';
+import type { Component } from '@mini-fc/core';
 
 export interface Route {
   path: string;
@@ -31,13 +31,23 @@ export interface Router {
   afterEach(hook: NavigationHook): () => void;
 }
 
-export type NavigationGuard = (to: RouteMatch, from: RouteMatch | null) => boolean | Promise<boolean>;
+export type NavigationGuard = (
+  to: RouteMatch,
+  from: RouteMatch | null
+) => boolean | Promise<boolean>;
 
 export type NavigationHook = (to: RouteMatch, from: RouteMatch | null) => void;
 
 // 路由链接 props
 export interface RouterLinkProps {
-  to: string | { path?: string; name?: string; params?: Record<string, string>; query?: Record<string, string> };
+  to:
+    | string
+    | {
+        path?: string;
+        name?: string;
+        params?: Record<string, string>;
+        query?: Record<string, string>;
+      };
   replace?: boolean;
   activeClass?: string;
   exactActiveClass?: string;

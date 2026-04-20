@@ -24,7 +24,7 @@ describe('defineStore', () => {
       id: 'user',
       state: () => ({ name: 'John', age: 25 }),
       getters: {
-        doubleAge: (state) => state.age * 2,
+        doubleAge: state => state.age * 2,
         greeting(): string {
           return `Hello, ${this.name.value}!`;
         }
@@ -77,7 +77,7 @@ describe('defineStore', () => {
       id: 'test',
       state: () => ({ count: 10 }),
       getters: {
-        double: (state) => state.count * 2,
+        double: state => state.count * 2,
         quadruple(): number {
           return this.double * 2;
         }
@@ -238,7 +238,7 @@ describe('TypeScript type inference', () => {
       id: 'test',
       state: () => ({ count: 10 }),
       getters: {
-        double: (state) => state.count * 2,
+        double: state => state.count * 2,
         stringValue(): string {
           return String(this.count.value);
         }

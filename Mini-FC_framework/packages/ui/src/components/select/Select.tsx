@@ -1,5 +1,5 @@
-import { defineComponent, h, ref, computed } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h, ref, computed } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 export interface SelectOption {
   label: string;
@@ -54,32 +54,45 @@ export const Select = defineComponent<{
     }
 
     return (): VNode => {
-      const classNames = [
-        'mf-select',
-        isOpen.value ? 'mf-select--open' : ''
-      ].filter(Boolean).join(' ');
+      const classNames = ['mf-select', isOpen.value ? 'mf-select--open' : '']
+        .filter(Boolean)
+        .join(' ');
 
       return h('div', { class: classNames, ref: selectRef }, [
-        h('div', {
-          class: 'mf-select__trigger',
-          onClick: handleToggle
-        }, [
-          h('span', {
-            class: selectedLabel.value ? 'mf-select__value' : 'mf-select__placeholder'
-          }, selectedLabel.value || props.placeholder),
-          h('span', { class: 'mf-select__arrow' }, '▼')
-        ]),
+        h(
+          'div',
+          {
+            class: 'mf-select__trigger',
+            onClick: handleToggle
+          },
+          [
+            h(
+              'span',
+              {
+                class: selectedLabel.value ? 'mf-select__value' : 'mf-select__placeholder'
+              },
+              selectedLabel.value || props.placeholder
+            ),
+            h('span', { class: 'mf-select__arrow' }, '▼')
+          ]
+        ),
         isOpen.value
           ? h('div', { class: 'mf-select__dropdown mf-animate-slide-up' }, [
-              h('ul', { class: 'mf-select__list' },
+              h(
+                'ul',
+                { class: 'mf-select__list' },
                 (props.options as SelectOption[]).map(option =>
-                  h('li', {
-                    class: [
-                      'mf-select__option',
-                      option.value === props.modelValue ? 'mf-select__option--selected' : ''
-                    ].join(' '),
-                    onClick: () => handleSelect(option)
-                  }, option.label)
+                  h(
+                    'li',
+                    {
+                      class: [
+                        'mf-select__option',
+                        option.value === props.modelValue ? 'mf-select__option--selected' : ''
+                      ].join(' '),
+                      onClick: () => handleSelect(option)
+                    },
+                    option.label
+                  )
                 )
               )
             ])

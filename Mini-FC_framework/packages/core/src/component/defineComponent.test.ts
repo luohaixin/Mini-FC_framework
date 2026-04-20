@@ -70,7 +70,11 @@ describe('defineComponent', () => {
       });
 
       const container = document.createElement('div');
-      const instance = mountComponent(component, container, { title: 'Hello', count: 42, active: true });
+      const instance = mountComponent(component, container, {
+        title: 'Hello',
+        count: 42,
+        active: true
+      });
 
       expect(instance.props.value.title).toBe('Hello');
       expect(instance.props.value.count).toBe(42);
@@ -129,9 +133,7 @@ describe('defineComponent', () => {
       const container = document.createElement('div');
       mountComponent(component, container);
 
-      expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('Missing required prop')
-      );
+      expect(consoleSpy).toHaveBeenCalledWith(expect.stringContaining('Missing required prop'));
 
       consoleSpy.mockRestore();
     });

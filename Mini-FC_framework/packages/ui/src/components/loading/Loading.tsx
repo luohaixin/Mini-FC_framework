@@ -1,5 +1,5 @@
-import { defineComponent, h } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 export interface LoadingProps {
   visible?: boolean;
@@ -27,7 +27,9 @@ export const Loading = defineComponent<{
       const classNames = [
         'mf-loading',
         props.fullscreen ? 'mf-loading--fullscreen' : 'mf-loading--local'
-      ].filter(Boolean).join(' ');
+      ]
+        .filter(Boolean)
+        .join(' ');
 
       const spinner = h('div', { class: classNames }, [
         h('div', { class: 'mf-loading__mask' }),
@@ -42,10 +44,7 @@ export const Loading = defineComponent<{
       }
 
       // 局部遮罩模式
-      return h('div', { class: 'mf-loading-wrapper' }, [
-        slots.default?.() ?? [],
-        spinner
-      ]);
+      return h('div', { class: 'mf-loading-wrapper' }, [slots.default?.() ?? [], spinner]);
     };
   }
 });

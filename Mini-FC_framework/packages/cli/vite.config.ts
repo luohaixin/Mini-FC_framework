@@ -10,15 +10,7 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: [
-        'commander',
-        'kolorist',
-        'fs/promises',
-        'fs',
-        'path',
-        'url',
-        'child_process'
-      ],
+      external: ['commander', 'kolorist', 'fs/promises', 'fs', 'path', 'url', 'child_process'],
       output: {
         preserveModules: false
       }

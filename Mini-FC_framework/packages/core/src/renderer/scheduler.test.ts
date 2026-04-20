@@ -12,7 +12,7 @@ describe('scheduler', () => {
       const job = vi.fn();
       queueJob(job);
       expect(job).not.toHaveBeenCalled();
-      
+
       await nextTick();
       expect(job).toHaveBeenCalledTimes(1);
     });
@@ -22,7 +22,7 @@ describe('scheduler', () => {
       queueJob(job);
       queueJob(job);
       queueJob(job);
-      
+
       await nextTick();
       expect(job).toHaveBeenCalledTimes(1);
     });
@@ -32,7 +32,7 @@ describe('scheduler', () => {
       queueJob(() => order.push(1));
       queueJob(() => order.push(2));
       queueJob(() => order.push(3));
-      
+
       await nextTick();
       expect(order).toEqual([1, 2, 3]);
     });
@@ -42,7 +42,7 @@ describe('scheduler', () => {
     it('should queue callbacks', async () => {
       const cb = vi.fn();
       queuePostFlushCb(cb);
-      
+
       await nextTick();
       expect(cb).toHaveBeenCalledTimes(1);
     });
@@ -56,10 +56,10 @@ describe('scheduler', () => {
 
     it('should execute callback after current flush', async () => {
       const order: string[] = [];
-      
+
       queueJob(() => order.push('job'));
       await nextTick(() => order.push('tick'));
-      
+
       expect(order).toEqual(['job', 'tick']);
     });
 
@@ -68,7 +68,7 @@ describe('scheduler', () => {
       nextTick().then(() => {
         resolved = true;
       });
-      
+
       await nextTick();
       expect(resolved).toBe(true);
     });
@@ -79,19 +79,19 @@ describe('scheduler', () => {
       const job = vi.fn();
       queueJob(job);
       expect(job).not.toHaveBeenCalled();
-      
+
       flush();
       expect(job).toHaveBeenCalledTimes(1);
     });
 
     it('should handle nested flushes', () => {
       const order: number[] = [];
-      
+
       queueJob(() => {
         order.push(1);
         queueJob(() => order.push(2));
       });
-      
+
       flush();
       expect(order).toEqual([1, 2]);
     });

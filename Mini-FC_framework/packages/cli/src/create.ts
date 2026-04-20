@@ -1,8 +1,9 @@
 import { mkdir, readdir, readFile, writeFile, copyFile } from 'fs/promises';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { green, cyan, yellow, red } from 'kolorist';
 import { spawn } from 'child_process';
+
+import { green, cyan, yellow, red } from 'kolorist';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -47,7 +48,7 @@ function runCommand(command: string, args: string[], cwd: string): Promise<void>
       shell: true
     });
 
-    child.on('close', (code) => {
+    child.on('close', code => {
       if (code === 0) {
         resolve();
       } else {

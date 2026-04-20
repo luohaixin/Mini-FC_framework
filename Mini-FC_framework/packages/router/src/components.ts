@@ -1,5 +1,6 @@
-import { defineComponent, h, ref, watch } from '@my-framework/core';
-import type { VNode, Component } from '@my-framework/core';
+import { defineComponent, h, ref, watch } from '@mini-fc/core';
+import type { VNode, Component } from '@mini-fc/core';
+
 import { getCurrentRouter } from './router.js';
 import type { RouterLinkProps } from './types.js';
 
@@ -15,17 +16,21 @@ export const RouterView = defineComponent({
       return (): VNode | null => null;
     }
 
-    watch(() => router._currentRoute.value, (routeMatch) => {
-      console.log('[RouterView] routeMatch changed:', routeMatch);
-      if (routeMatch) {
-        // 同步解析组件（因为组件是同步定义的）
-        const component = routeMatch.route.component;
-        console.log('[RouterView] resolved component:', component);
-        currentComponent.value = component as Component;
-      } else {
-        currentComponent.value = null;
-      }
-    }, { immediate: true });
+    watch(
+      () => router._currentRoute.value,
+      routeMatch => {
+        console.log('[RouterView] routeMatch changed:', routeMatch);
+        if (routeMatch) {
+          // 同步解析组件（因为组件是同步定义的）
+          const component = routeMatch.route.component;
+          console.log('[RouterView] resolved component:', component);
+          currentComponent.value = component as Component;
+        } else {
+          currentComponent.value = null;
+        }
+      },
+      { immediate: true }
+    );
 
     return (): VNode | null => {
       const component = currentComponent.value;
@@ -70,7 +75,12 @@ export const RouterLink = defineComponent<{
         path = to;
       } else {
         // 对象形式 { path, name, params, query }
-        const routeObj = to as { path?: string; name?: string; params?: Record<string, string>; query?: Record<string, string> };
+        const routeObj = to as {
+          path?: string;
+          name?: string;
+          params?: Record<string, string>;
+          query?: Record<string, string>;
+        };
         if (routeObj.path) {
           path = routeObj.path;
         } else {
@@ -121,13 +131,19 @@ export const RouterLink = defineComponent<{
         'router-link',
         isActive() ? props.activeClass : '',
         isExactActive() ? props.exactActiveClass : ''
-      ].filter(Boolean).join(' ');
+      ]
+        .filter(Boolean)
+        .join(' ');
 
-      return h('a', {
-        class: classNames,
-        href: getHref(),
-        onClick: handleClick
-      }, slots.default?.() ?? []);
+      return h(
+        'a',
+        {
+          class: classNames,
+          href: getHref(),
+          onClick: handleClick
+        },
+        slots.default?.() ?? []
+      );
     };
   }
 });

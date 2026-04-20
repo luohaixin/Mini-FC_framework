@@ -1,7 +1,8 @@
 import { spawn } from 'child_process';
-import { green, cyan, red } from 'kolorist';
 import { existsSync } from 'fs';
 import { join } from 'path';
+
+import { green, cyan, red } from 'kolorist';
 
 export interface DevOptions {
   port?: string;
@@ -10,7 +11,7 @@ export interface DevOptions {
 
 export async function startDevServer(options: DevOptions): Promise<void> {
   const port = options.port || '3000';
-  
+
   console.log(cyan('\nStarting development server...'));
 
   // 检查 vite 是否安装
@@ -32,12 +33,12 @@ export async function startDevServer(options: DevOptions): Promise<void> {
     shell: true
   });
 
-  child.on('error', (error) => {
+  child.on('error', error => {
     console.error(red('\nFailed to start dev server:'), error.message);
     process.exit(1);
   });
 
-  child.on('close', (code) => {
+  child.on('close', code => {
     if (code !== 0 && code !== null) {
       console.error(red(`\nDev server exited with code ${code}`));
       process.exit(code);

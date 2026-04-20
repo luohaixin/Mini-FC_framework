@@ -1,5 +1,5 @@
-import { defineComponent, h } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 // Layout 主容器
 export const Layout = defineComponent({
@@ -45,27 +45,36 @@ export const Sider = defineComponent<{
     };
 
     return (): VNode => {
-      const widthStyle = props.collapsed 
-        ? '80px' 
-        : (typeof props.width === 'number' ? `${props.width}px` : props.width);
+      const widthStyle = props.collapsed
+        ? '80px'
+        : typeof props.width === 'number'
+          ? `${props.width}px`
+          : props.width;
 
-      const classNames = [
-        'mf-layout__sider',
-        props.collapsed ? 'mf-layout__sider--collapsed' : ''
-      ].filter(Boolean).join(' ');
+      const classNames = ['mf-layout__sider', props.collapsed ? 'mf-layout__sider--collapsed' : '']
+        .filter(Boolean)
+        .join(' ');
 
-      return h('aside', { 
-        class: classNames,
-        style: { width: widthStyle }
-      }, [
-        h('div', { class: 'mf-layout__sider-content' }, slots.default?.() ?? []),
-        props.collapsible
-          ? h('button', {
-              class: 'mf-layout__sider-trigger',
-              onClick: handleToggle
-            }, props.collapsed ? '→' : '←')
-          : null
-      ]);
+      return h(
+        'aside',
+        {
+          class: classNames,
+          style: { width: widthStyle }
+        },
+        [
+          h('div', { class: 'mf-layout__sider-content' }, slots.default?.() ?? []),
+          props.collapsible
+            ? h(
+                'button',
+                {
+                  class: 'mf-layout__sider-trigger',
+                  onClick: handleToggle
+                },
+                props.collapsed ? '→' : '←'
+              )
+            : null
+        ]
+      );
     };
   }
 });

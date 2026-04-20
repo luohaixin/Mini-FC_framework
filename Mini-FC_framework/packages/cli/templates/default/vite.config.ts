@@ -9,7 +9,7 @@ export default defineConfig({
     target: 'esnext',
     outDir: 'dist',
     rollupOptions: {
-      external: ['@my-framework/core', '@my-framework/router', '@mini-fc/store']
+      external: ['@mini-fc/core', '@mini-fc/router', '@mini-fc/store']
     }
   }
 });

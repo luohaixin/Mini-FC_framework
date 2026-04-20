@@ -1,5 +1,5 @@
-import { defineComponent, h } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 export interface ListProps<T = unknown> {
   dataSource?: T[];
@@ -25,10 +25,9 @@ export const List = defineComponent<{
   },
   setup(props, { slots }) {
     return (): VNode => {
-      const classNames = [
-        'mf-list',
-        props.bordered ? 'mf-list--bordered' : ''
-      ].filter(Boolean).join(' ');
+      const classNames = ['mf-list', props.bordered ? 'mf-list--bordered' : '']
+        .filter(Boolean)
+        .join(' ');
 
       const data = props.dataSource as unknown[];
       const isEmpty = data.length === 0;
@@ -41,12 +40,18 @@ export const List = defineComponent<{
             ])
           : isEmpty
             ? h('div', { class: 'mf-list__empty' }, props.emptyText)
-            : h('ul', { class: 'mf-list__items' },
+            : h(
+                'ul',
+                { class: 'mf-list__items' },
                 data.map((item, index) =>
-                  h('li', {
-                    class: 'mf-list__item',
-                    key: index
-                  }, slots.renderItem?.(item, index) ?? [])
+                  h(
+                    'li',
+                    {
+                      class: 'mf-list__item',
+                      key: index
+                    },
+                    slots.renderItem?.(item, index) ?? []
+                  )
                 )
               )
       ]);

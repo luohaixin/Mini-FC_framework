@@ -3,10 +3,7 @@ import { program } from 'commander';
 import { createProject, startDevServer, buildProject } from '../dist/index.js';
 import { cyan, green } from 'kolorist';
 
-program
-  .name('mini-fc')
-  .description('Mini-FC Framework CLI')
-  .version('1.0.0');
+program.name('mini-fc').description('Mini-FC Framework CLI').version('1.0.0');
 
 program
   .command('create <project-name>')
@@ -26,7 +23,7 @@ program
   .description('Start development server')
   .option('-p, --port <port>', 'Port number', '3000')
   .option('-o, --open', 'Open browser automatically', false)
-  .action(async (options) => {
+  .action(async options => {
     try {
       await startDevServer(options);
     } catch (error) {
@@ -39,7 +36,7 @@ program
   .command('build')
   .description('Build for production')
   .option('-o, --outDir <dir>', 'Output directory')
-  .action(async (options) => {
+  .action(async options => {
     try {
       await buildProject(options);
     } catch (error) {
@@ -58,8 +55,8 @@ program
         stdio: 'inherit',
         shell: true
       });
-      
-      child.on('error', (error) => {
+
+      child.on('error', error => {
         console.error('Failed to start preview server:', error.message);
         process.exit(1);
       });

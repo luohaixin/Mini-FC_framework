@@ -1,8 +1,10 @@
+import { effect, stop } from '@vue/reactivity';
+
+import type { ComponentInstance } from '../component/defineComponent.js';
+
 import type { VNode, Component } from './h.js';
 import { isVNode, Fragment } from './h.js';
 import { queueJob, nextTick } from './scheduler.js';
-import type { ComponentInstance } from '../component/defineComponent.js';
-import { effect, stop } from '@vue/reactivity';
 
 // DEV 标志
 const __DEV__ = process.env.NODE_ENV !== 'production';
@@ -13,9 +15,11 @@ const EVENT_PREFIX_LENGTH = EVENT_PREFIX.length;
 
 // 检查是否为事件处理器
 function isEventHandler(key: string): boolean {
-  return key.length > EVENT_PREFIX_LENGTH &&
+  return (
+    key.length > EVENT_PREFIX_LENGTH &&
     key.startsWith(EVENT_PREFIX) &&
-    key[EVENT_PREFIX_LENGTH] === key[EVENT_PREFIX_LENGTH].toUpperCase();
+    key[EVENT_PREFIX_LENGTH] === key[EVENT_PREFIX_LENGTH].toUpperCase()
+  );
 }
 
 // 提取事件名
@@ -24,12 +28,7 @@ function extractEventName(key: string): string {
 }
 
 // 设置 DOM 属性
-function setDOMAttribute(
-  el: HTMLElement,
-  key: string,
-  value: unknown,
-  oldValue: unknown
-): void {
+function setDOMAttribute(el: HTMLElement, key: string, value: unknown, oldValue: unknown): void {
   // 处理事件
   if (isEventHandler(key)) {
     const eventName = extractEventName(key);
@@ -205,7 +204,7 @@ function componentUpdateFn(instance: ComponentInstance): void {
 
   // 更新 subTree 引用
   instance.subTree = nextTree;
-  nextTree.el = newEl as HTMLElement | Text;
+  nextTree.el = newEl;
 
   if (__DEV__) {
     console.log(`[mini-fc]: Component "${instance.name}" updated`);
@@ -228,11 +227,11 @@ function mountComponentVNode(vnode: VNode, container: HTMLElement): HTMLElement 
     props: { value: props } as { value: Record<string, unknown> },
     setupResult: null,
     context: {
-      emit: () => { },
+      emit: () => {},
       slots
     },
     isMounted: false,
-    emit: () => { },
+    emit: () => {},
     container: null,
     subTree: null,
     update: undefined
@@ -253,7 +252,7 @@ function mountComponentVNode(vnode: VNode, container: HTMLElement): HTMLElement 
     const initialRenderResult = renderFn();
     const el = createElement(initialRenderResult);
     instance.subTree = initialRenderResult;
-    instance.subTree.el = el as HTMLElement | Text;
+    instance.subTree.el = el;
     instance.isMounted = true;
     instance.container = container;
     vnode.el = el;
@@ -265,23 +264,26 @@ function mountComponentVNode(vnode: VNode, container: HTMLElement): HTMLElement 
     // 使用 effect 包裹渲染函数，用于追踪依赖并在数据变化时触发更新
     // 注意：effect 会在创建时立即执行一次，所以我们需要确保此时不会导致重复渲染
     let isInitialEffectRun = true;
-    const renderEffect = effect(() => {
-      // 执行渲染函数，此时会追踪响应式依赖
-      renderFn();
-      // effect 只负责追踪依赖，不直接操作 DOM
-      // 首次运行时跳过（因为已经渲染过了）
-      if (isInitialEffectRun) {
-        isInitialEffectRun = false;
-        return;
-      }
-    }, {
-      scheduler: () => {
-        // 当响应式依赖变化时，调度更新
-        if (instance.update) {
-          instance.update();
+    const renderEffect = effect(
+      () => {
+        // 执行渲染函数，此时会追踪响应式依赖
+        renderFn();
+        // effect 只负责追踪依赖，不直接操作 DOM
+        // 首次运行时跳过（因为已经渲染过了）
+        if (isInitialEffectRun) {
+          isInitialEffectRun = false;
+          return;
+        }
+      },
+      {
+        scheduler: () => {
+          // 当响应式依赖变化时，调度更新
+          if (instance.update) {
+            instance.update();
+          }
         }
       }
-    });
+    );
 
     instance.effect = renderEffect;
     instance.update = () => updateComponent(instance);
@@ -298,7 +300,7 @@ function mountComponentVNode(vnode: VNode, container: HTMLElement): HTMLElement 
 
     const el = createElement(renderResult);
     instance.subTree = renderResult;
-    instance.subTree.el = el as HTMLElement | Text;
+    instance.subTree.el = el;
     instance.isMounted = true;
     instance.container = container;
     vnode.el = el;
@@ -364,9 +366,8 @@ function patchChildren(
       patch(oldChild, newChild, parentEl, i);
     } else {
       // 类型不同，替换
-      const newEl = typeof newChild === 'string'
-        ? document.createTextNode(newChild)
-        : createElement(newChild);
+      const newEl =
+        typeof newChild === 'string' ? document.createTextNode(newChild) : createElement(newChild);
 
       if (parentEl.childNodes[i]) {
         parentEl.replaceChild(newEl, parentEl.childNodes[i]);
@@ -379,9 +380,8 @@ function patchChildren(
   // 添加新节点
   for (let i = minLen; i < newLen; i++) {
     const newChild = newChildren[i];
-    const newEl = typeof newChild === 'string'
-      ? document.createTextNode(newChild)
-      : createElement(newChild);
+    const newEl =
+      typeof newChild === 'string' ? document.createTextNode(newChild) : createElement(newChild);
     parentEl.appendChild(newEl);
   }
 
@@ -394,12 +394,7 @@ function patchChildren(
 }
 
 // 核心 patch 函数 - 比较并更新 VNode
-function patch(
-  oldVNode: VNode,
-  newVNode: VNode,
-  container: HTMLElement,
-  index?: number
-): void {
+function patch(oldVNode: VNode, newVNode: VNode, container: HTMLElement, index?: number): void {
   // 如果类型不同，直接替换
   if (!isSameVNodeType(oldVNode, newVNode)) {
     const newEl = createElement(newVNode);
@@ -413,7 +408,7 @@ function patch(
       }
     }
 
-    newVNode.el = newEl as HTMLElement | Text;
+    newVNode.el = newEl;
     return;
   }
 
@@ -434,11 +429,12 @@ function patch(
   // 组件
   if (typeof newVNode.type === 'object') {
     // 组件更新：复用已有组件实例，触发重新渲染
-    const oldComponentInstance = (oldVNode as unknown as { componentInstance?: ComponentInstance }).componentInstance;
+    const oldComponentInstance = (oldVNode as unknown as { componentInstance?: ComponentInstance })
+      .componentInstance;
 
     if (oldComponentInstance && oldComponentInstance.update) {
       // 更新 props
-      const component = newVNode.type as Component;
+      const component = newVNode.type;
       const newProps = { ...newVNode.props };
 
       // 更新组件实例的 props
@@ -448,7 +444,8 @@ function patch(
       oldComponentInstance.update();
 
       // 将组件实例附加到新的 vnode
-      (newVNode as unknown as { componentInstance?: ComponentInstance }).componentInstance = oldComponentInstance;
+      (newVNode as unknown as { componentInstance?: ComponentInstance }).componentInstance =
+        oldComponentInstance;
       newVNode.el = oldVNode.el;
     }
 
@@ -497,7 +494,7 @@ export function render(vnode: VNode | null, container: HTMLElement): void {
       container.removeChild(container.firstChild);
     }
     container.appendChild(el);
-    vnode.el = el as HTMLElement | Text;
+    vnode.el = el;
   }
 
   // 保存当前 VNode
@@ -505,11 +502,7 @@ export function render(vnode: VNode | null, container: HTMLElement): void {
 }
 
 // 根节点 patch - 处理容器级别的更新
-function patchRoot(
-  oldVNode: VNode,
-  newVNode: VNode,
-  container: HTMLElement
-): void {
+function patchRoot(oldVNode: VNode, newVNode: VNode, container: HTMLElement): void {
   // 如果类型不同，直接替换
   if (!isSameVNodeType(oldVNode, newVNode)) {
     const newEl = createElement(newVNode);
@@ -519,7 +512,7 @@ function patchRoot(
       oldEl.parentNode.replaceChild(newEl, oldEl);
     }
 
-    newVNode.el = newEl as HTMLElement | Text;
+    newVNode.el = newEl;
     return;
   }
 
@@ -540,7 +533,8 @@ function patchRoot(
   // 组件
   if (typeof newVNode.type === 'object') {
     // 组件更新：复用已有组件实例，触发重新渲染
-    const oldComponentInstance = (oldVNode as unknown as { componentInstance?: ComponentInstance }).componentInstance;
+    const oldComponentInstance = (oldVNode as unknown as { componentInstance?: ComponentInstance })
+      .componentInstance;
 
     if (oldComponentInstance && oldComponentInstance.update) {
       // 更新 props
@@ -553,7 +547,8 @@ function patchRoot(
       oldComponentInstance.update();
 
       // 将组件实例附加到新的 vnode
-      (newVNode as unknown as { componentInstance?: ComponentInstance }).componentInstance = oldComponentInstance;
+      (newVNode as unknown as { componentInstance?: ComponentInstance }).componentInstance =
+        oldComponentInstance;
       newVNode.el = oldVNode.el;
     }
 

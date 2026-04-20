@@ -24,10 +24,7 @@ describe('h()', () => {
   });
 
   it('should create a VNode with array children', () => {
-    const vnode = h('ul', null, [
-      h('li', null, 'Item 1'),
-      h('li', null, 'Item 2'),
-    ]);
+    const vnode = h('ul', null, [h('li', null, 'Item 1'), h('li', null, 'Item 2')]);
     expect(vnode.type).toBe('ul');
     expect(vnode.children).toHaveLength(2);
     expect(isVNode(vnode.children[0])).toBe(true);
@@ -37,7 +34,7 @@ describe('h()', () => {
   it('should handle nested arrays of children', () => {
     const vnode = h('div', null, [
       [h('span', null, 'A'), h('span', null, 'B')],
-      [h('span', null, 'C')],
+      [h('span', null, 'C')]
     ]);
     expect(vnode.children).toHaveLength(3);
   });
@@ -50,12 +47,7 @@ describe('h()', () => {
   });
 
   it('should handle null and undefined children', () => {
-    const vnode = h('div', null, [
-      'text',
-      null,
-      undefined,
-      h('span'),
-    ]);
+    const vnode = h('div', null, ['text', null, undefined, h('span')]);
     expect(vnode.children).toHaveLength(2);
     expect(vnode.children[0]).toBe('text');
     expect(isVNode(vnode.children[1])).toBe(true);
@@ -74,12 +66,7 @@ describe('h()', () => {
   });
 
   it('should handle mixed children types', () => {
-    const vnode = h('div', null, [
-      'text',
-      123,
-      h('span'),
-      null,
-    ]);
+    const vnode = h('div', null, ['text', 123, h('span'), null]);
     expect(vnode.children).toHaveLength(3);
     expect(vnode.children[0]).toBe('text');
     expect(vnode.children[1]).toBe('123');
@@ -113,10 +100,7 @@ describe('createTextVNode()', () => {
 
 describe('hFragment()', () => {
   it('should create a Fragment VNode', () => {
-    const vnode = hFragment([
-      h('div', null, 'A'),
-      h('div', null, 'B'),
-    ]);
+    const vnode = hFragment([h('div', null, 'A'), h('div', null, 'B')]);
     expect(vnode.type).toBe(Fragment);
     expect(vnode.children).toHaveLength(2);
   });

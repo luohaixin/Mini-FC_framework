@@ -1,5 +1,5 @@
-import { defineComponent, h, ref } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h, ref } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 export type SwitchSize = 'small' | 'medium' | 'large';
 
@@ -32,19 +32,23 @@ export const Switch = defineComponent<{
         `mf-switch--${props.size}`,
         props.modelValue ? 'mf-switch--checked' : '',
         props.disabled ? 'mf-switch--disabled' : ''
-      ].filter(Boolean).join(' ');
+      ]
+        .filter(Boolean)
+        .join(' ');
 
-      return h('button', {
-        class: classNames,
-        type: 'button',
-        role: 'switch',
-        'aria-checked': String(props.modelValue),
-        'aria-disabled': props.disabled,
-        disabled: props.disabled,
-        onClick: handleClick
-      }, [
-        h('span', { class: 'mf-switch__handle' })
-      ]);
+      return h(
+        'button',
+        {
+          class: classNames,
+          type: 'button',
+          role: 'switch',
+          'aria-checked': String(props.modelValue),
+          'aria-disabled': props.disabled,
+          disabled: props.disabled,
+          onClick: handleClick
+        },
+        [h('span', { class: 'mf-switch__handle' })]
+      );
     };
   }
 });

@@ -109,12 +109,12 @@ describe('reactivity', () => {
     it('should cache computed value', () => {
       const getter = vi.fn(() => 42);
       const computedValue = computed(getter);
-      
+
       // Access multiple times
       computedValue.value;
       computedValue.value;
       computedValue.value;
-      
+
       // Getter should only be called once
       expect(getter).toHaveBeenCalledTimes(1);
     });
@@ -122,7 +122,7 @@ describe('reactivity', () => {
     it('should re-evaluate when dependency changes', () => {
       const count = ref(2);
       const doubled = computed(() => count.value * 2);
-      
+
       expect(doubled.value).toBe(4);
       count.value = 5;
       expect(doubled.value).toBe(10);
@@ -136,7 +136,7 @@ describe('reactivity', () => {
           count.value = val / 2;
         }
       });
-      
+
       expect(writableDoubled.value).toBe(2);
       writableDoubled.value = 10;
       expect(count.value).toBe(5);
@@ -147,11 +147,11 @@ describe('reactivity', () => {
       const count = ref(0);
       const getter = vi.fn(() => count.value * 2);
       const doubled = computed(getter);
-      
+
       doubled.value;
       doubled.value;
       expect(getter).toHaveBeenCalledTimes(1);
-      
+
       count.value = 1;
       doubled.value;
       expect(getter).toHaveBeenCalledTimes(2);
@@ -162,10 +162,10 @@ describe('reactivity', () => {
     it('should watch ref changes', async () => {
       const count = ref(0);
       const callback = vi.fn();
-      
+
       watch(count, callback);
       count.value = 5;
-      
+
       await nextTick();
       expect(callback).toHaveBeenCalledWith(5, 0, expect.any(Function));
     });
@@ -173,13 +173,13 @@ describe('reactivity', () => {
     it('should support immediate option', async () => {
       const count = ref(0);
       const callback = vi.fn();
-      
+
       watch(count, callback, { immediate: true });
-      
+
       await nextTick();
       expect(callback).toHaveBeenCalledWith(0, undefined, expect.any(Function));
       expect(callback).toHaveBeenCalledTimes(1);
-      
+
       count.value = 5;
       await nextTick();
       expect(callback).toHaveBeenCalledTimes(2);
@@ -188,10 +188,10 @@ describe('reactivity', () => {
     it('should watch reactive object', async () => {
       const state = reactive({ count: 0 });
       const callback = vi.fn();
-      
+
       watch(() => state.count, callback);
       state.count = 5;
-      
+
       await nextTick();
       expect(callback).toHaveBeenCalledWith(5, 0, expect.any(Function));
     });
@@ -199,10 +199,10 @@ describe('reactivity', () => {
     it('should support deep watch', async () => {
       const state = reactive({ nested: { count: 0 } });
       const callback = vi.fn();
-      
+
       watch(() => state.nested, callback, { deep: true });
       state.nested.count = 5;
-      
+
       await nextTick();
       expect(callback).toHaveBeenCalled();
     });
@@ -210,10 +210,10 @@ describe('reactivity', () => {
     it('should stop watching when called', async () => {
       const count = ref(0);
       const callback = vi.fn();
-      
+
       const stop = watch(count, callback);
       stop();
-      
+
       count.value = 5;
       await nextTick();
       expect(callback).not.toHaveBeenCalled();
@@ -226,7 +226,7 @@ describe('reactivity', () => {
       const effectFn = vi.fn(() => {
         return count.value;
       });
-      
+
       watchEffect(effectFn);
       await nextTick();
       expect(effectFn).toHaveBeenCalledTimes(1);
@@ -237,10 +237,10 @@ describe('reactivity', () => {
       const effectFn = vi.fn(() => {
         return count.value;
       });
-      
+
       watchEffect(effectFn);
       await nextTick();
-      
+
       count.value = 5;
       await nextTick();
       expect(effectFn).toHaveBeenCalledTimes(2);
@@ -249,16 +249,16 @@ describe('reactivity', () => {
     it('should support cleanup', async () => {
       const count = ref(0);
       const cleanupFn = vi.fn();
-      
-      watchEffect((onCleanup) => {
+
+      watchEffect(onCleanup => {
         onCleanup(cleanupFn);
         return count.value;
       });
-      
+
       await nextTick();
       count.value = 5;
       await nextTick();
-      
+
       expect(cleanupFn).toHaveBeenCalledTimes(1);
     });
   });

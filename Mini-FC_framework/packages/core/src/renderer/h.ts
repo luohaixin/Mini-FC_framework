@@ -74,7 +74,7 @@ function normalizeChildren(children: unknown): (VNode | string)[] {
 function normalizeChild(child: unknown): (VNode | string)[] {
   // 已经是 VNode
   if (isVNode(child)) {
-    return [child as VNode];
+    return [child];
   }
 
   // 基本类型转为字符串

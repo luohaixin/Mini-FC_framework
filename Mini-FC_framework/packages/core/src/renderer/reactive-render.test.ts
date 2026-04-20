@@ -105,7 +105,7 @@ class MockText {
 global.document = {
   createElement: (tag: string) => new MockElement(tag),
   createTextNode: (text: string) => new MockText(text),
-  createDocumentFragment: () => new MockElement('fragment'),
+  createDocumentFragment: () => new MockElement('fragment')
 } as unknown as Document;
 
 describe('组件自动重新渲染机制', () => {
@@ -260,10 +260,11 @@ describe('组件自动重新渲染机制', () => {
       const ComputedComponent = defineComponent({
         name: 'ComputedComponent',
         setup() {
-          return () => h('div', null, [
-            h('span', null, `Count: ${count.value}`),
-            h('span', null, `Double: ${count.value * 2}`)
-          ]);
+          return () =>
+            h('div', null, [
+              h('span', null, `Count: ${count.value}`),
+              h('span', null, `Double: ${count.value * 2}`)
+            ]);
         }
       });
 
@@ -299,10 +300,8 @@ describe('组件自动重新渲染机制', () => {
       const ParentComponent = defineComponent({
         name: 'Parent',
         setup() {
-          return () => h('div', null, [
-            h('span', null, `Parent: ${parentCount.value}`),
-            h(ChildComponent)
-          ]);
+          return () =>
+            h('div', null, [h('span', null, `Parent: ${parentCount.value}`), h(ChildComponent)]);
         }
       });
 
@@ -328,7 +327,7 @@ describe('组件自动重新渲染机制', () => {
       const ConditionalComponent = defineComponent({
         name: 'Conditional',
         setup() {
-          return () => show.value ? h('div', null, 'Visible') : h('div', null, 'Hidden');
+          return () => (show.value ? h('div', null, 'Visible') : h('div', null, 'Hidden'));
         }
       });
 

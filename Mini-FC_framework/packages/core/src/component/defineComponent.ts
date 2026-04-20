@@ -1,5 +1,6 @@
-import { shallowRef, triggerRef, isRef, unref, type Ref } from '../reactivity/index.js';
 import type { ReactiveEffectRunner } from '@vue/reactivity';
+
+import { shallowRef, triggerRef, isRef, unref, type Ref } from '../reactivity/index.js';
 
 // DEV 标志
 const __DEV__ = process.env.NODE_ENV !== 'production';
@@ -11,20 +12,21 @@ export type PropType<T = unknown> =
   | PropConstructor<T>;
 
 type PropConstructor<T = unknown> =
-  | { new(...args: unknown[]): T & object }
+  | { new (...args: unknown[]): T & object }
   | { (...args: unknown[]): T }
   | null;
 
 // 从 PropType 提取类型
-type ExtractPropType<T extends PropType<unknown>> = T extends PropConstructor<infer V>
-  ? V
-  : T extends { type: PropConstructor<infer V>; required: true }
-  ? V
-  : T extends { type: PropConstructor<infer V>; default: infer D }
-  ? V | D
-  : T extends { type: PropConstructor<infer V> }
-  ? V | undefined
-  : never;
+type ExtractPropType<T extends PropType<unknown>> =
+  T extends PropConstructor<infer V>
+    ? V
+    : T extends { type: PropConstructor<infer V>; required: true }
+      ? V
+      : T extends { type: PropConstructor<infer V>; default: infer D }
+        ? V | D
+        : T extends { type: PropConstructor<infer V> }
+          ? V | undefined
+          : never;
 
 // 从 props 选项对象提取 Props 类型
 export type ExtractProps<T extends Record<string, PropType<unknown>>> = {
@@ -83,10 +85,7 @@ export interface DefineComponentOptions<
 > {
   name: string;
   props?: P;
-  setup: (
-    props: ExtractProps<P>,
-    context: SetupContext
-  ) => RenderFn | object;
+  setup: (props: ExtractProps<P>, context: SetupContext) => RenderFn | object;
 }
 
 // 验证单个 prop
@@ -104,9 +103,7 @@ function validateProp(
 
   // 检查必填
   if (isRequired && (value === undefined || value === null)) {
-    console.warn(
-      `[mini-fc warn]: Missing required prop: "${key}" in component "${componentName}"`
-    );
+    console.warn(`[mini-fc warn]: Missing required prop: "${key}" in component "${componentName}"`);
     return;
   }
 
@@ -140,7 +137,7 @@ function validateProp(
     if (!typeMatch) {
       console.warn(
         `[mini-fc warn]: Invalid prop: type check failed for prop "${key}" in component "${componentName}". ` +
-        `Expected ${type.name}, got ${actualType === 'object' ? (Array.isArray(value) ? 'Array' : 'Object') : actualType}`
+          `Expected ${type.name}, got ${actualType === 'object' ? (Array.isArray(value) ? 'Array' : 'Object') : actualType}`
       );
     }
   }
@@ -161,9 +158,10 @@ function resolveProps<P extends Record<string, PropType<unknown>>>(
     // 应用默认值
     if ((value === undefined || value === null) && typeof propType === 'object') {
       if ('default' in propType) {
-        value = typeof propType.default === 'function'
-          ? (propType.default as () => unknown)()
-          : propType.default;
+        value =
+          typeof propType.default === 'function'
+            ? (propType.default as () => unknown)()
+            : propType.default;
       }
     }
 
@@ -219,9 +217,9 @@ function createComponentInstance<P extends Record<string, PropType<unknown>>>(
 }
 
 // 定义组件
-export function defineComponent<P extends Record<string, PropType<unknown>> = Record<string, never>>(
-  options: DefineComponentOptions<P>
-): Component {
+export function defineComponent<
+  P extends Record<string, PropType<unknown>> = Record<string, never>
+>(options: DefineComponentOptions<P>): Component {
   const component: Component = {
     name: options.name,
     props: options.props,
@@ -277,11 +275,4 @@ export function unmountComponent(instance: ComponentInstance): void {
 }
 
 // 导出类型
-export type {
-  PropConstructor,
-  Component,
-  ComponentInstance,
-  VNode,
-  RenderFn,
-  SetupContext
-};
+export type { PropConstructor, Component, ComponentInstance, VNode, RenderFn, SetupContext };

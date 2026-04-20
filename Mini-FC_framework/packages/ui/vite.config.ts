@@ -10,10 +10,10 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: ['@my-framework/core', '@vue/reactivity'],
+      external: ['@mini-fc/core', '@vue/reactivity'],
       output: {
         globals: {
-          '@my-framework/core': 'MyFramework',
+          '@mini-fc/core': 'MiniFC',
           '@vue/reactivity': 'VueReactivity'
         }
       }

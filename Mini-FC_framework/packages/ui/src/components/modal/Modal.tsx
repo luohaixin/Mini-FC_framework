@@ -1,5 +1,5 @@
-import { defineComponent, h, ref } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h, ref } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 export interface ModalProps {
   visible?: boolean;
@@ -59,45 +59,63 @@ export const Modal = defineComponent<{
     return (): VNode | null => {
       if (!props.visible) return null;
 
-      const widthStyle = typeof props.width === 'number' 
-        ? `${props.width}px` 
-        : props.width;
+      const widthStyle = typeof props.width === 'number' ? `${props.width}px` : props.width;
 
       return h('div', { class: 'mf-modal-root' }, [
         h('div', {
           class: 'mf-modal-mask mf-animate-fade-in',
           onClick: handleMaskClick
         }),
-        h('div', {
-          class: 'mf-modal-wrap',
-          ref: modalRef
-        }, [
-          h('div', {
-            class: 'mf-modal mf-animate-slide-up',
-            style: { width: widthStyle }
-          }, [
-            h('div', { class: 'mf-modal__header' }, [
-              h('div', { class: 'mf-modal__title' }, props.title),
-              props.closable
-                ? h('button', {
-                    class: 'mf-modal__close',
-                    onClick: handleClose
-                  }, '✕')
-                : null
-            ]),
-            h('div', { class: 'mf-modal__body' }, slots.default?.() ?? []),
-            h('div', { class: 'mf-modal__footer' }, [
-              h('button', {
-                class: 'mf-modal__btn mf-modal__btn--default',
-                onClick: handleClose
-              }, '取消'),
-              h('button', {
-                class: 'mf-modal__btn mf-modal__btn--primary',
-                onClick: handleConfirm
-              }, '确定')
-            ])
-          ])
-        ])
+        h(
+          'div',
+          {
+            class: 'mf-modal-wrap',
+            ref: modalRef
+          },
+          [
+            h(
+              'div',
+              {
+                class: 'mf-modal mf-animate-slide-up',
+                style: { width: widthStyle }
+              },
+              [
+                h('div', { class: 'mf-modal__header' }, [
+                  h('div', { class: 'mf-modal__title' }, props.title),
+                  props.closable
+                    ? h(
+                        'button',
+                        {
+                          class: 'mf-modal__close',
+                          onClick: handleClose
+                        },
+                        '✕'
+                      )
+                    : null
+                ]),
+                h('div', { class: 'mf-modal__body' }, slots.default?.() ?? []),
+                h('div', { class: 'mf-modal__footer' }, [
+                  h(
+                    'button',
+                    {
+                      class: 'mf-modal__btn mf-modal__btn--default',
+                      onClick: handleClose
+                    },
+                    '取消'
+                  ),
+                  h(
+                    'button',
+                    {
+                      class: 'mf-modal__btn mf-modal__btn--primary',
+                      onClick: handleConfirm
+                    },
+                    '确定'
+                  )
+                ])
+              ]
+            )
+          ]
+        )
       ]);
     };
   }

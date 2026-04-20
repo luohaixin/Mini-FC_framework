@@ -1,5 +1,5 @@
-import { defineComponent, h, reactive } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h, reactive } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 export type ToastType = 'info' | 'success' | 'error' | 'warning';
 
@@ -58,15 +58,21 @@ export const ToastContainer = defineComponent({
   name: 'ToastContainer',
   setup() {
     return (): VNode => {
-      return h('div', { class: 'mf-toast-container' },
+      return h(
+        'div',
+        { class: 'mf-toast-container' },
         toastQueue.map(toast =>
-          h('div', {
-            class: `mf-toast mf-toast--${toast.type} mf-animate-slide-up`,
-            key: toast.id
-          }, [
-            h('span', { class: 'mf-toast__icon' }, getIcon(toast.type)),
-            h('span', { class: 'mf-toast__message' }, toast.message)
-          ])
+          h(
+            'div',
+            {
+              class: `mf-toast mf-toast--${toast.type} mf-animate-slide-up`,
+              key: toast.id
+            },
+            [
+              h('span', { class: 'mf-toast__icon' }, getIcon(toast.type)),
+              h('span', { class: 'mf-toast__message' }, toast.message)
+            ]
+          )
         )
       );
     };
@@ -75,10 +81,14 @@ export const ToastContainer = defineComponent({
 
 function getIcon(type: ToastType): string {
   switch (type) {
-    case 'success': return '✓';
-    case 'error': return '✕';
-    case 'warning': return '!';
-    default: return 'ℹ';
+    case 'success':
+      return '✓';
+    case 'error':
+      return '✕';
+    case 'warning':
+      return '!';
+    default:
+      return 'ℹ';
   }
 }
 

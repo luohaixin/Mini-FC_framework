@@ -1,5 +1,5 @@
-import { defineComponent, h } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 export type CardShadow = 'always' | 'hover' | 'never';
 
@@ -26,18 +26,18 @@ export const Card = defineComponent<{
         'mf-card',
         props.bordered ? 'mf-card--bordered' : '',
         `mf-card--shadow-${props.shadow}`
-      ].filter(Boolean).join(' ');
+      ]
+        .filter(Boolean)
+        .join(' ');
 
       return h('div', { class: classNames }, [
-        (props.title || slots.header)
+        props.title || slots.header
           ? h('div', { class: 'mf-card__header' }, [
               slots.header?.() ?? h('span', { class: 'mf-card__title' }, props.title)
             ])
           : null,
         h('div', { class: 'mf-card__body' }, slots.default?.() ?? []),
-        slots.footer
-          ? h('div', { class: 'mf-card__footer' }, slots.footer())
-          : null
+        slots.footer ? h('div', { class: 'mf-card__footer' }, slots.footer()) : null
       ]);
     };
   }

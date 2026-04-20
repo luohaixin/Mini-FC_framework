@@ -102,7 +102,7 @@ class MockText {
 global.document = {
   createElement: (tag: string) => new MockElement(tag),
   createTextNode: (text: string) => new MockText(text),
-  createDocumentFragment: () => new MockElement('fragment'),
+  createDocumentFragment: () => new MockElement('fragment')
 } as unknown as Document;
 
 describe('createElement()', () => {
@@ -117,10 +117,7 @@ describe('createElement()', () => {
   });
 
   it('should create nested elements', () => {
-    const vnode = h('div', null, [
-      h('span', null, 'A'),
-      h('span', null, 'B'),
-    ]);
+    const vnode = h('div', null, [h('span', null, 'A'), h('span', null, 'B')]);
     const el = createElement(vnode) as MockElement;
 
     expect(el.children).toHaveLength(2);

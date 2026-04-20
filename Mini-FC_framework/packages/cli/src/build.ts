@@ -1,7 +1,8 @@
 import { spawn } from 'child_process';
-import { green, cyan, red, yellow } from 'kolorist';
 import { existsSync } from 'fs';
 import { join } from 'path';
+
+import { green, cyan, red, yellow } from 'kolorist';
 
 export interface BuildOptions {
   outDir?: string;
@@ -28,12 +29,12 @@ export async function buildProject(options: BuildOptions): Promise<void> {
       shell: true
     });
 
-    child.on('error', (error) => {
+    child.on('error', error => {
       console.error(red('\nFailed to build project:'), error.message);
       reject(error);
     });
 
-    child.on('close', (code) => {
+    child.on('close', code => {
       if (code === 0) {
         console.log(green('\n✅ Build completed successfully!'));
         console.log(cyan('\nTo preview the production build:'));

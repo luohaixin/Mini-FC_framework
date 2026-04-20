@@ -1,5 +1,5 @@
-import { defineComponent, h, ref, computed } from '@my-framework/core';
-import type { VNode } from '@my-framework/core';
+import { defineComponent, h, ref, computed } from '@mini-fc/core';
+import type { VNode } from '@mini-fc/core';
 
 export type InputType = 'text' | 'password';
 
@@ -59,7 +59,9 @@ export const Input = defineComponent<{
         'mf-input',
         props.disabled ? 'mf-input--disabled' : '',
         isFocused.value ? 'mf-input--focused' : ''
-      ].filter(Boolean).join(' ');
+      ]
+        .filter(Boolean)
+        .join(' ');
 
       return h('div', { class: classNames }, [
         h('input', {
@@ -75,10 +77,14 @@ export const Input = defineComponent<{
           onBlur: handleBlur
         }),
         showClear.value
-          ? h('span', {
-              class: 'mf-input__clear',
-              onClick: handleClear
-            }, '✕')
+          ? h(
+              'span',
+              {
+                class: 'mf-input__clear',
+                onClick: handleClear
+              },
+              '✕'
+            )
           : null
       ]);
     };

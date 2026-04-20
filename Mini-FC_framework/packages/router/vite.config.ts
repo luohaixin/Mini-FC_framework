@@ -10,10 +10,10 @@ export default defineConfig({
       fileName: 'index'
     },
     rollupOptions: {
-      external: ['@my-framework/core'],
+      external: ['@mini-fc/core'],
       output: {
         globals: {
-          '@my-framework/core': 'MyFrameworkCore'
+          '@mini-fc/core': 'MiniFC'
         }
       }
     },
