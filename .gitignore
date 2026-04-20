@@ -1,0 +1,28 @@
+# 其他项目（不应该提交到 Mini-FC_framework 仓库）
+Mini-FC_framework_备份/
+前端知识点/
+扫雷/
+推箱子/
+数独/
+视频下载/
+贪吃蛇/
+飞机大战/
+
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 编辑器和IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志
+*.log
