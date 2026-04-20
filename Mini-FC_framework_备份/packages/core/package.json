@@ -1,0 +1,41 @@
+{
+  "name": "@mini-fc/core",
+  "version": "1.0.0",
+  "description": "Mini-FC framework core - lightweight reactive frontend framework",
+  "type": "module",
+  "license": "MIT",
+  "author": "",
+  "keywords": [
+    "mini-fc",
+    "framework",
+    "frontend",
+    "reactive",
+    "vue"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@vue/reactivity": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vitest": "^1.1.0"
+  }
+}

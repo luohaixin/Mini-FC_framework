@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数独游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>数独游戏</h1>
+            <div class="level-info">
+                <span>当前关卡: <strong id="current-level">1</strong></span>
+                <span>难度: <strong id="difficulty">简单</strong></span>
+            </div>
+        </header>
+
+        <div class="game-board">
+            <div id="sudoku-grid" class="sudoku-grid"></div>
+        </div>
+
+        <div class="controls">
+            <div class="number-pad">
+                <button class="num-btn" data-num="1">1</button>
+                <button class="num-btn" data-num="2">2</button>
+                <button class="num-btn" data-num="3">3</button>
+                <button class="num-btn" data-num="4">4</button>
+                <button class="num-btn" data-num="5">5</button>
+                <button class="num-btn" data-num="6">6</button>
+                <button class="num-btn" data-num="7">7</button>
+                <button class="num-btn" data-num="8">8</button>
+                <button class="num-btn" data-num="9">9</button>
+                <button class="num-btn erase" data-num="0">擦除</button>
+            </div>
+            <div class="action-buttons">
+                <button id="new-game-btn" class="btn">新游戏</button>
+                <button id="check-btn" class="btn">检查</button>
+                <button id="hint-btn" class="btn">提示</button>
+            </div>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <div id="victory-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>恭喜通关!</h2>
+            <p>你成功完成了第 <span id="completed-level"></span> 关!</p>
+            <div class="modal-buttons">
+                <button id="next-level-btn" class="btn primary">下一关</button>
+                <button id="replay-btn" class="btn">重玩本关</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="sudoku.js"></script>
+</body>
+</html>

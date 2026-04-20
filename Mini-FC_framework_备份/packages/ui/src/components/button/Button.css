@@ -1,0 +1,95 @@
+.mf-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mf-spacing-xs);
+  border: 1px solid var(--mf-border-color);
+  border-radius: var(--mf-border-radius);
+  background-color: #fff;
+  color: var(--mf-text-primary);
+  cursor: pointer;
+  transition: all var(--mf-transition-duration) var(--mf-transition-timing);
+  font-size: 14px;
+  line-height: 1.5;
+  outline: none;
+  white-space: nowrap;
+}
+
+.mf-button:hover:not(:disabled) {
+  border-color: var(--mf-primary-color);
+  color: var(--mf-primary-color);
+}
+
+.mf-button:focus {
+  box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.mf-button--pressed {
+  transform: scale(0.98);
+}
+
+/* 尺寸 */
+.mf-button--small {
+  height: var(--mf-height-sm);
+  padding: 0 var(--mf-spacing-sm);
+  font-size: 12px;
+}
+
+.mf-button--medium {
+  height: var(--mf-height-md);
+  padding: 0 var(--mf-spacing-md);
+}
+
+.mf-button--large {
+  height: var(--mf-height-lg);
+  padding: 0 var(--mf-spacing-lg);
+  font-size: 16px;
+}
+
+/* 类型 */
+.mf-button--primary {
+  background-color: var(--mf-primary-color);
+  border-color: var(--mf-primary-color);
+  color: #fff;
+}
+
+.mf-button--primary:hover:not(:disabled) {
+  background-color: #40a9ff;
+  border-color: #40a9ff;
+  color: #fff;
+}
+
+.mf-button--danger {
+  background-color: var(--mf-error-color);
+  border-color: var(--mf-error-color);
+  color: #fff;
+}
+
+.mf-button--danger:hover:not(:disabled) {
+  background-color: #ff4d4f;
+  border-color: #ff4d4f;
+  color: #fff;
+}
+
+/* 禁用状态 */
+.mf-button--disabled,
+.mf-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 加载状态 */
+.mf-button--loading {
+  cursor: wait;
+  opacity: 0.8;
+}
+
+.mf-button__loading-icon {
+  display: inline-block;
+  font-size: 1.2em;
+}
+
+.mf-button__content {
+  display: inline-flex;
+  align-items: center;
+}

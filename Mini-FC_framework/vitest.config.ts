@@ -14,8 +14,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@my-framework/core': resolve(__dirname, 'packages/core/src/index.ts'),
-      '@my-framework/router': resolve(__dirname, 'packages/router/src/index.ts')
+      '@mini-fc/core': resolve(__dirname, 'packages/core/src/index.ts'),
+      '@mini-fc/router': resolve(__dirname, 'packages/router/src/index.ts'),
+      '@mini-fc/store': resolve(__dirname, 'packages/store/src/index.ts'),
+      '@mini-fc/ui': resolve(__dirname, 'packages/ui/src/index.ts')
     }
   }
 });

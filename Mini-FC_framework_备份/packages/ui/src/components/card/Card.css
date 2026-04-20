@@ -1,0 +1,46 @@
+.mf-card {
+  background-color: #fff;
+  border-radius: var(--mf-border-radius);
+  transition: all var(--mf-transition-duration) var(--mf-transition-timing);
+}
+
+.mf-card--bordered {
+  border: 1px solid var(--mf-border-color);
+}
+
+/* 阴影样式 */
+.mf-card--shadow-never {
+  box-shadow: none;
+}
+
+.mf-card--shadow-always {
+  box-shadow: var(--mf-shadow-1);
+}
+
+.mf-card--shadow-hover:hover {
+  box-shadow: var(--mf-shadow-2);
+}
+
+.mf-card__header {
+  display: flex;
+  align-items: center;
+  padding: var(--mf-spacing-md) var(--mf-spacing-lg);
+  border-bottom: 1px solid var(--mf-border-color);
+}
+
+.mf-card__title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--mf-text-primary);
+}
+
+.mf-card__body {
+  padding: var(--mf-spacing-lg);
+}
+
+.mf-card__footer {
+  display: flex;
+  align-items: center;
+  padding: var(--mf-spacing-md) var(--mf-spacing-lg);
+  border-top: 1px solid var(--mf-border-color);
+}

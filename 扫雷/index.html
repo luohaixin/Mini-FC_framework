@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扫雷大冒险 - Minesweeper Adventure</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 头部区域 -->
+        <header class="game-header">
+            <h1 class="game-title">💣 扫雷大冒险</h1>
+            <div class="header-controls">
+                <button id="soundToggle" class="icon-btn" title="音效开关">🔊</button>
+                <button id="helpBtn" class="icon-btn" title="游戏帮助">❓</button>
+            </div>
+        </header>
+
+        <!-- 主菜单界面 -->
+        <div id="mainMenu" class="screen active">
+            <div class="menu-content">
+                <div class="logo-area">
+                    <div class="mine-logo">💣</div>
+                    <h2>扫雷大冒险</h2>
+                    <p>挑战你的逻辑推理能力</p>
+                </div>
+                <div class="menu-buttons">
+                    <button id="continueBtn" class="btn btn-primary hidden">继续游戏</button>
+                    <button id="newGameBtn" class="btn btn-primary">开始闯关</button>
+                    <button id="levelSelectBtn" class="btn btn-secondary">关卡选择</button>
+                    <button id="settingsBtn" class="btn btn-secondary">设置</button>
+                </div>
+                <div class="stats-preview">
+                    <div class="stat-item">
+                        <span class="stat-label">最高关卡</span>
+                        <span id="maxLevelDisplay" class="stat-value">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">总游戏时间</span>
+                        <span id="totalTimeDisplay" class="stat-value">00:00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">胜率</span>
+                        <span id="winRateDisplay" class="stat-value">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 关卡选择界面 -->
+        <div id="levelSelect" class="screen">
+            <div class="screen-header">
+                <button class="back-btn">← 返回</button>
+                <h2>关卡选择</h2>
+            </div>
+            <div class="level-grid" id="levelGrid">
+                <!-- 动态生成关卡卡片 -->
+            </div>
+        </div>
+
+        <!-- 游戏界面 -->
+        <div id="gameScreen" class="screen">
+            <div class="screen-header">
+                <button class="back-btn">← 返回</button>
+                <div class="level-info">
+                    <span id="currentLevel">第 1 关</span>
+                    <span id="difficultyBadge" class="badge easy">简单</span>
+                </div>
+            </div>
+
+            <div class="game-panel">
+                <div class="game-stats">
+                    <div class="stat-box">
+                        <span class="stat-icon">💣</span>
+                        <span id="mineCount" class="stat-number">10</span>
+                    </div>
+                    <div class="stat-box timer">
+                        <span class="stat-icon">⏱️</span>
+                        <span id="gameTimer" class="stat-number">000</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-icon">🚩</span>
+                        <span id="flagCount" class="stat-number">0</span>
+                    </div>
+                </div>
+
+                <div class="game-board-container">
+                    <div id="gameBoard" class="game-board">
+                        <!-- 动态生成游戏格子 -->
+                    </div>
+                </div>
+
+                <div class="game-controls">
+                    <button id="restartBtn" class="btn btn-control">🔄 重新开始</button>
+                    <button id="hintBtn" class="btn btn-control">💡 提示</button>
+                    <button id="pauseBtn" class="btn btn-control">⏸️ 暂停</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设置界面 -->
+        <div id="settingsScreen" class="screen">
+            <div class="screen-header">
+                <button class="back-btn">← 返回</button>
+                <h2>设置</h2>
+            </div>
+            <div class="settings-content">
+                <div class="setting-item">
+                    <label>音效</label>
+                    <label class="toggle">
+                        <input type="checkbox" id="soundSetting" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>背景音乐</label>
+                    <label class="toggle">
+                        <input type="checkbox" id="musicSetting">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>动画效果</label>
+                    <label class="toggle">
+                        <input type="checkbox" id="animationSetting" checked>
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>长按标记</label>
+                    <label class="toggle">
+                        <input type="checkbox" id="longPressSetting">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item danger">
+                    <button id="resetProgressBtn" class="btn btn-danger">重置所有进度</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 帮助界面 -->
+        <div id="helpScreen" class="screen">
+            <div class="screen-header">
+                <button class="back-btn">← 返回</button>
+                <h2>游戏帮助</h2>
+            </div>
+            <div class="help-content">
+                <div class="help-section">
+                    <h3>🎮 游戏规则</h3>
+                    <ul>
+                        <li>点击格子揭开，避开所有地雷</li>
+                        <li>数字表示周围8格中地雷的数量</li>
+                        <li>右键或长按标记可疑的地雷</li>
+                        <li>揭开所有安全格子即可获胜</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>🎯 操作方式</h3>
+                    <ul>
+                        <li><strong>左键点击</strong>：揭开格子</li>
+                        <li><strong>右键点击</strong>：标记/取消标记旗子</li>
+                        <li><strong>双击数字</strong>：快速揭开周围格子</li>
+                        <li><strong>长按</strong>：在移动设备上标记旗子</li>
+                    </ul>
+                </div>
+                <div class="help-section">
+                    <h3>🏆 闯关模式</h3>
+                    <ul>
+                        <li>共30个关卡，难度逐步递增</li>
+                        <li>每5关解锁新的难度等级</li>
+                        <li>完成关卡可获得星级评价</li>
+                        <li>游戏进度自动保存</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 游戏结果弹窗 -->
+        <div id="resultModal" class="modal hidden">
+            <div class="modal-content">
+                <div id="resultIcon" class="result-icon">🎉</div>
+                <h2 id="resultTitle">恭喜通关！</h2>
+                <div class="result-stats">
+                    <div class="result-stat">
+                        <span>用时</span>
+                        <span id="resultTime">00:45</span>
+                    </div>
+                    <div class="result-stat">
+                        <span>星级</span>
+                        <span id="resultStars">⭐⭐⭐</span>
+                    </div>
+                </div>
+                <div class="result-buttons">
+                    <button id="retryBtn" class="btn btn-secondary">重试</button>
+                    <button id="nextLevelBtn" class="btn btn-primary">下一关</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 暂停弹窗 -->
+        <div id="pauseModal" class="modal hidden">
+            <div class="modal-content">
+                <h2>⏸️ 游戏暂停</h2>
+                <p>休息一下，继续挑战！</p>
+                <button id="resumeBtn" class="btn btn-primary">继续游戏</button>
+            </div>
+        </div>
+
+        <!-- 确认弹窗 -->
+        <div id="confirmModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 id="confirmTitle">确认操作</h2>
+                <p id="confirmMessage">确定要执行此操作吗？</p>
+                <div class="confirm-buttons">
+                    <button id="cancelBtn" class="btn btn-secondary">取消</button>
+                    <button id="confirmBtn" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/minesweeper.js"></script>
+    <script src="js/levelSystem.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
