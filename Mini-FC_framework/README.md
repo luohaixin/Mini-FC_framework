@@ -181,41 +181,38 @@ npm run dev
 
 ```typescript
 import { ref, computed, h, render } from '@mini-fc/core';
-```
 
 // 创建响应式状态
 const count = ref(0);
-const double = computed(() => count.value \* 2);
+const double = computed(() => count.value * 2);
 
 // 创建虚拟 DOM
 const vnode = h('div', { class: 'counter' }, [
-h('h1', null, 'Hello Mini-FC!'),
-h('p', null, `Count: ${count.value}`),
-h('p', null, `Double: ${double.value}`),
-h('button', {
-onClick: () => count.value++
-}, 'Increment')
+  h('h1', null, 'Hello Mini-FC!'),
+  h('p', null, `Count: ${count.value}`),
+  h('p', null, `Double: ${double.value}`),
+  h('button', {
+    onClick: () => count.value++
+  }, 'Increment')
 ]);
 
 // 渲染到 DOM
 render(vnode, document.getElementById('app')!);
-
-````
+```
 
 ### 组件定义
 
 ```typescript
 import { defineComponent, ref, h } from '@mini-fc/core';
-````
 
 const Counter = defineComponent({
-name: 'Counter',
-props: {
-initial: { type: Number, default: 0 },
-step: { type: Number, default: 1 }
-},
-setup(props) {
-const count = ref(props.initial);
+  name: 'Counter',
+  props: {
+    initial: { type: Number, default: 0 },
+    step: { type: Number, default: 1 }
+  },
+  setup(props) {
+    const count = ref(props.initial);
 
     const increment = () => {
       count.value += props.step;
@@ -225,52 +222,48 @@ const count = ref(props.initial);
       h('span', null, `Count: ${count.value}`),
       h('button', { onClick: increment }, '+')
     ]);
-
-}
+  }
 });
 
 // 使用组件
 const app = h(Counter, { initial: 10, step: 5 });
 render(app, document.getElementById('app')!);
-
-````
+```
 
 ### 路由使用
 
 ```typescript
 import { createRouter, RouterView } from '@mini-fc/router';
 import { h, render, defineComponent } from '@mini-fc/core';
-````
 
 // 定义路由
 const router = createRouter({
-routes: [
-{ path: '/', component: Home },
-{ path: '/about', component: About },
-{ path: '/user/:id', component: User }
-],
-mode: 'hash' // 或 'history'
+  routes: [
+    { path: '/', component: Home },
+    { path: '/about', component: About },
+    { path: '/user/:id', component: User }
+  ],
+  mode: 'hash' // 或 'history'
 });
 
 // 在组件中使用
 const App = defineComponent({
-name: 'App',
-setup() {
-return () => h('div', null, [
-h('nav', null, [
-h('a', { href: '#/' }, 'Home'),
-h('a', { href: '#/about' }, 'About')
-]),
-h(RouterView, {})
-]);
-}
+  name: 'App',
+  setup() {
+    return () => h('div', null, [
+      h('nav', null, [
+        h('a', { href: '#/' }, 'Home'),
+        h('a', { href: '#/about' }, 'About')
+      ]),
+      h(RouterView, {})
+    ]);
+  }
 });
 
 // 导航
 router.push('/about');
 router.back();
-
-````
+```
 
 ### 状态管理
 
@@ -366,51 +359,47 @@ const App = defineComponent({
 
 ```typescript
 import { defineComponent, h } from '@mini-fc/core';
-```
 
 // 在组件中使用 slots
 const MyComponent = defineComponent({
-name: 'MyComponent',
-setup(props, { slots }) {
-return () => h('div', { class: 'my-component' }, [
-h('header', null, slots.header?.()),
-h('main', null, slots.default?.()),
-h('footer', null, slots.footer?.())
-]);
-}
+  name: 'MyComponent',
+  setup(props, { slots }) {
+    return () => h('div', { class: 'my-component' }, [
+      h('header', null, slots.header?.()),
+      h('main', null, slots.default?.()),
+      h('footer', null, slots.footer?.())
+    ]);
+  }
 });
 
 // 使用带插槽的组件
 const App = defineComponent({
-name: 'App',
-setup() {
-return () => h(MyComponent, null, {
-header: () => h('h1', null, 'Header Content'),
-default: () => h('p', null, 'Main Content'),
-footer: () => h('span', null, 'Footer Content')
+  name: 'App',
+  setup() {
+    return () => h(MyComponent, null, {
+      header: () => h('h1', null, 'Header Content'),
+      default: () => h('p', null, 'Main Content'),
+      footer: () => h('span', null, 'Footer Content')
+    });
+  }
 });
-}
-});
-
 ```
 
 ## 📁 项目结构
 
 ```
-
 Mini-FC framework/
 ├── packages/
-│ ├── core/ # 核心框架（响应式、组件、渲染器）
-│ ├── router/ # 路由系统
-│ ├── store/ # 状态管理
-│ ├── ui/ # UI 组件库
-│ └── cli/ # CLI 脚手架
-├── playground/ # 示例项目
-├── coverage/ # 测试覆盖率报告
-├── PROJECT_MEMORY.md # 项目记忆库（跨对话状态恢复）
+│   ├── core/           # 核心框架（响应式、组件、渲染器）
+│   ├── router/         # 路由系统
+│   ├── store/          # 状态管理
+│   ├── ui/             # UI 组件库
+│   └── cli/            # CLI 脚手架
+├── playground/         # 示例项目
+├── coverage/           # 测试覆盖率报告
+├── PROJECT_MEMORY.md   # 项目记忆库（跨对话状态恢复）
 └── README.md
-
-````
+```
 
 ## 🛠️ CLI 命令
 
@@ -430,7 +419,7 @@ npm run build
 
 # 预览生产构建
 npm run preview
-````
+```
 
 ## 🧪 开发（框架开发者）
 
