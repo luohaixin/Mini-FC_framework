@@ -2,7 +2,7 @@
 
 > 一个轻量级、Vue3 风格的前端框架，基于 Petite Vue 理念构建
 
-[![CI](https://github.com/xingxingbei/Mini-FC_framework/actions/workflows/ci.yml/badge.svg)](https://github.com/xingxingbei/Mini-FC_framework/actions/workflows/ci.yml)
+[![CI](https://github.com/luohaixin/Mini-FC_framework/actions/workflows/ci.yml/badge.svg)](https://github.com/luohaixin/Mini-FC_framework/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue.svg)](https://www.typescriptlang.org/)
 [![Vite](https://img.shields.io/badge/Vite-5.0-646CFF.svg)](https://vitejs.dev/)
 [![Tests](https://img.shields.io/badge/Tests-148%20passed-brightgreen.svg)]()
